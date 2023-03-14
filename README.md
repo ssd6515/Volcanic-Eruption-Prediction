@@ -164,7 +164,7 @@ The  following plots show the difference between the difference between true Y_v
 
 ### Conclusions
 
-*  From the plots it is seen that the RandomForest model was the best among the 2 models as the predicted data was closer to the true value and condensed than the other models. But still, there is some variation from the true value of validation data in RandomForest model. Overall, the RandomForest model was not as effective because I used less samples of data due to storage issues, which may have lead to larger MAE value than expected between 4000000-5000000.
+*  From the plots it is seen that the RandomForest model was the best among the 2 models as the predicted data was closer to the true value and condensed than the other models. But still, there is some variation from the true value of validation data in RandomForest model. Overall, the RandomForest model was effective only to the small samples of data used due to storage issues. This may have lead to larger MAE value than expected between 4000000-5000000.
 
 
 ### Future Work
@@ -186,7 +186,7 @@ The  following plots show the difference between the difference between true Y_v
    * Create the train, valid, test dataset as described:
    
    
-   <img width="749" alt="Screenshot 2022-12-13 192023" src="https://user-images.githubusercontent.com/89792366/207481413-75bd2f37-aacc-49c7-afcb-56dea2f3413c.png">
+   <img width="731" alt="t2" src="https://user-images.githubusercontent.com/89792366/225097326-dbc6e58a-0c27-4563-be79-bb9c8a9cbacb.png">
    
 
    * Create model as described in Training Section.
@@ -197,27 +197,15 @@ The  following plots show the difference between the difference between true Y_v
    
     * Feature Importance Plot:
     
-      <img width="478" alt="Screenshot 2022-12-13 192408" src="https://user-images.githubusercontent.com/89792366/207481935-8d56a610-03f1-4a8a-99a3-3c400cd815a7.png">
+      <img width="733" alt="i" src="https://user-images.githubusercontent.com/89792366/225097680-c3b933d7-26fa-4a32-bbf6-d60c45607dc4.png">
     
     
-    * Train/Valid Loss Plot:
-    
-    
-     <img width="761" alt="Screenshot 2022-12-13 192455" src="https://user-images.githubusercontent.com/89792366/207482023-0c03c8bf-e600-403c-a4f0-2ffa7fdfc52b.png">
-     
-    
-
-
     * Finally, you can get the plots that show the difference between the difference between true Y_valid and predicted Y_pred from X_valid data as follows:
     
     
      
    
-     <img width="471" alt="Screenshot 2022-12-13 192906" src="https://user-images.githubusercontent.com/89792366/207482555-c8fb482a-4254-4360-90a3-06cd1920ccc0.png">
-    
-    
-
-     <img width="474" alt="Screenshot 2022-12-13 193008" src="https://user-images.githubusercontent.com/89792366/207482665-13a3c1c6-3ade-44f0-888c-979690dc8b41.png">
+    <img width="724" alt="f" src="https://user-images.githubusercontent.com/89792366/225097907-4569dced-1add-476a-ae9a-64aa77d1f127.png">
 
 
 
@@ -228,30 +216,27 @@ The  following plots show the difference between the difference between true Y_v
 
   * preprocess.ipynb: Takes input data in CSV and writes out data frame after cleanup.
   * visualization.ipynb: Creates various visualizations of the data.
-  * training-model-1.ipynb: Trains the first model and saves model during training.
-  * training-model-2.ipynb: Trains the second model and saves model during training.
-  * training-model-3.ipynb: Trains the third model and saves model during training.
+  * XGBoost.ipynb: Trains the first model and saves model during training.
+  * RandomForest.ipynb: Trains the second model and saves model during training.
   * performance.ipynb: loads multiple trained models and compares results.
   * inference.ipynb: loads a trained model and applies it to test data to create kaggle submission.
-  * lstm_submission.csv - file contaning item_cnt_month for the test data for lstm model.
-  * submission_lgb.csv - file contaning item_cnt_month for the test data for lightgbm model.
+  * submission_rf.csv - file contaning item_cnt_month for the test data for randomforest model.
   * submission_xgb.csv - file contaning item_cnt_month for the test data for xgbregressor model.
 
 ### Software Setup
 
-* Python packages: numpy, pandas, math, sklearn, seaborn, matplotlib.pyplot, xgboost, lightgbm, joblib, keras
+* Python packages: numpy, pandas, math, sklearn, seaborn, matplotlib.pyplot, xgboost, joblib
 * Download seaborn in jupyter - pip install seaborn
-* Download lightgbm in jupyter - pip install lightgbm
-* Download tensorflow in jupyter - pip install tensorflow
 * Download xgboost in jupyter - pip install xgboost
 
 ### Data
 
 * Download data files required for the project from the following link:
-  https://www.kaggle.com/competitions/competitive-data-science-predict-future-sales/data
+  https://www.kaggle.com/competitions/predict-volcanic-eruptions-ingv-oe/data
 
 
 ## Citations
 
-* https://github.com/waylongo/predict-future-sale
-* https://www.kaggle.com/code/cocoyachi/lightgbm-futuresales
+* https://github.com/se4ai2122-cs-uniba/Volcanic-eruption-prediction
+* https://github.com/Pedro-Hdez/VolcanicEruptionPrediction
+* https://github.com/chezka-sino/volcano-eruption
