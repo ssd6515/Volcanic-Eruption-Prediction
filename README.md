@@ -10,7 +10,7 @@
  
  * **Approach:** The approach in this repository formulates the problem as a regression task, using deep neural networks as the model with the time series of seismic activity as input.  
  
- * **Summary of the performance achieved:** Our best model was able to predict the time for volcano's next eruption with the metric(MAE) of 11893938.230567.
+ * **Summary of the performance achieved:** Our best model was able to predict the time for volcano's next eruption with the metric(MAE) of 11632481.80263158.
 
 ## Summary of Workdone
 
@@ -36,7 +36,7 @@
     
   * Size: 31.25 GB
   
-  * Instances (Train, Test, Validation Split): data points: 1332. 482 volcano id for training, 730 for testing, 120 for validation
+  * Instances (Train, Test, Validation Split): data points: 1485. 605 volcano id for training, 728 for testing, 152 for validation
 
 ### Preprocessing / Clean up
 
@@ -46,12 +46,19 @@ Figure 1:
 
 Figure 1: There are a lot of senosrs with missing data with sensor 2 being the highest. Thus, NAN values has been taken care of in preprocess for train_data and test_data for better modeling.
 
+### Feature Engineering
+
 * Added the following features: 
-     * sensor_1_nanmin-sensor_10_nanmin: The minimum value for 10 sensors in each csv file.                      
-     * sensor_1_nanmax-sensor_10_nanmax: The maximum value for 10 sensors in each csv file.                                  
-     * sensor_1_nanmedian-sensor_10_nanmedian: The median value for 10 sensors in each csv file.            
-     * sensor_1_nanmean-sensor_10_nanmean: The mean value for 10 sensors in each csv file.   
-     * sensor_1_nanstd-sensor_10_nanstd: The standard deviation value for 10 sensors in each csv file.       
+     * sensor_1_mad-sensor_10_mad: The mean absolute deviation values for 10 sensors in each csv file.                      
+     * sensor_1_skew-sensor_10_skew: The skewness values for 10 sensors in each csv file.                                  
+     * sensor_1_kurt-sensor_10_kurt: The kurtosis values for 10 sensors in each csv file.            
+     * sensor_1_nunique-sensor_10_nunique: The unique values for 10 sensors in each csv file.   
+     * sensor_1_quantile_05-sensor_10_quantile_05: The 5% quantile values for 10 sensors in each csv file. Similary other quantiles (10,30,70,90,95) were added.
+     * sensor_1_fft_power_mean-sensor_10_fft_power_mean: The fast fourier mean values for 10 sensors in each csv file. Similarly, fft feature was used for mean, standard deviation, minimum, maximum, sume of low, middle, high values, mean absolute deviation, skewness, kurtosis, unique, quantile values of 10 sensors in each file.  
+     * sensor_1_roll_mean_min-sensor_10_roll_mean_min: The rolling minimum of mean values for 10 sensors in each csv file. Similarly, rolling feature was used for maximum of mean, minimum value in difference between max and min of rolling mean, etc. 
+     * sensor_1_first_005-sensor_10_first_005: The minimum values in first 5% of time data for 10 sensors in each csv file. Similarly, the minimum and maximum values for different time ranges (10%,30%,70%,90%,95%) were extracted.
+     
+    * A total of 570 features were extracted from the dataset.
      
 ### Data Visualization
 
@@ -79,7 +86,11 @@ Figure 4:
 
 Figure 4: Overall the distribution of the time_to_eruption looks uniform. With exception of few volcanoes taking a longer period of time at the end of the distribution. Thus, the model in my opinion should predict uniform results for the test_data as well.
 
- 
+Figure 5:
+
+<img width="490" alt="dd" src="https://user-images.githubusercontent.com/89792366/234763644-a8b3016b-47f5-45ee-aaa0-04b8eac1f0b5.png">
+
+Figure 5: There are some features that have skewness after feature extraction. Above figure is one example of a skewed feature. These features are scaled using RobustScaler. 
  
 ### Problem Formulation
 
@@ -114,10 +125,10 @@ Figure 4: Overall the distribution of the time_to_eruption looks uniform. With e
   The feature importance plot was plotted with their f-score:  
   
   
-   <img width="501" alt="plot" src="https://user-images.githubusercontent.com/89792366/225089612-4d731e58-28fe-4c60-aaae-86a34379e941.png"> 
+   <img width="611" alt="dd1" src="https://user-images.githubusercontent.com/89792366/234764466-3d48d10f-4542-4196-94d6-924f4f7b27cf.png"> 
   
   
-  sensor_1_nanmean highest f-score. While sensor_10_nanstd has the lowest f-score.
+  This plot shows some of the features with their f-scores with sensor_9_skew having the highest f-score and sensor_1_quantile_10 having the lowest f-score.
 
 
 * RandomForest Model:
@@ -144,21 +155,21 @@ Figure 4: Overall the distribution of the time_to_eruption looks uniform. With e
 * Table:
 
 
-   <img width="146" alt="t" src="https://user-images.githubusercontent.com/89792366/225091775-40508222-d355-4b78-9dac-9ec8cfddb3dd.png">
+   <img width="125" alt="ds" src="https://user-images.githubusercontent.com/89792366/234765147-ded67e9f-2053-4e0a-909f-3a6b06615da5.png">
 
 The  following plots show the difference between the difference between true Y_valid and predicted Y_pred from X_valid data.
 
 * XGB plot:
 
 
-  <img width="731" alt="g" src="https://user-images.githubusercontent.com/89792366/225092152-d2842b75-fe8a-474a-91e6-9c24a29bc752.png">
+  <img width="822" alt="x" src="https://user-images.githubusercontent.com/89792366/234765427-5bb33900-88e3-4ee7-8e1c-dd693e9b6cf1.png">
   
   
   
 * RandomForest plot:
 
 
-  <img width="736" alt="gf" src="https://user-images.githubusercontent.com/89792366/225092212-dd2e317e-81f5-4d85-8f60-557db02ff729.png">
+  <img width="827" alt="r" src="https://user-images.githubusercontent.com/89792366/234765458-045f3ed3-f87d-419b-b724-273e7bd79d78.png">
   
 
 
@@ -169,7 +180,7 @@ The  following plots show the difference between the difference between true Y_v
 
 ### Future Work
 
-* In future, I can make the models more effective in terms of getting accurate predictions. This can be done by deeply understanding the features used and advancing parameters used in models and using a better environment to process larger data. 
+* In future, I can make the models more effective in terms of getting accurate predictions. This can be done by providing a better environment like I was unable to use Sagemaker, which would have resulted in better prediction. Also, I would use an environment where I could potentially incorporate all the available data to create a model. As I had storage issues, I had to use limited data, which might have resulted in large MAE value than expected.
 
 ### How to reproduce results
 
@@ -220,8 +231,8 @@ The  following plots show the difference between the difference between true Y_v
   * RandomForest.ipynb: Trains the second model and saves model during training.
   * performance.ipynb: loads multiple trained models and compares results.
   * inference.ipynb: loads a trained model and applies it to test data to create kaggle submission.
-  * submission_rf.csv - file contaning item_cnt_month for the test data for randomforest model.
-  * submission_xgb.csv - file contaning item_cnt_month for the test data for xgbregressor model.
+  * submission_rf.csv - file contaning time_to_eruption for the test data for randomforest model.
+  * submission_xgb.csv - file contaning time_to_eruption for the test data for xgbregressor model.
 
 ### Software Setup
 
